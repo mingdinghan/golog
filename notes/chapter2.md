@@ -7,7 +7,9 @@
   - backward compatibility with versioning
 - gRPC: a high-performance remote procedure call (RPC) framework
 
-### Install the Protocol Buffer compiler
+### Setup
+
+- Install the Protocol Buffer compiler
 ```bash
 wget https://github.com/protocolbuffers/protobuf/\
   releases/download/v21.1/protoc-21.1-osx-aarch_64.zip
@@ -22,3 +24,30 @@ protoc --version
 
 rm protoc-21.1-osx-aarch_64.zip 
 ```
+
+- Install the protobuf runtime for Go
+```bash
+go get google.golang.org/protobuf/...@v1.28.0
+```
+
+- Update and source `~/.bash_profile`
+```bash
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin
+```
+
+---
+### Define Domain Types as Protocol Buffers
+
+- A convention for Go projects is to put protobuf definitions in an `api` directory
+- Use the `repeated` keyword to define a slice of some type
+- Compile the protobuf
+```bash
+protoc api/v1/*.proto \
+  --go_out=. \
+  --go_opt=paths=source_relative \
+  --proto_path=.
+```
+- Write a Makefile to automate commands
