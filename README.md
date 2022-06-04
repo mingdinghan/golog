@@ -1,4 +1,4 @@
-## Goloc
+## Golog
 
 Golog is a distributed commit log built using Go
 
