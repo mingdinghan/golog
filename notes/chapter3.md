@@ -30,3 +30,5 @@
   - Segment: the abstraction that ties a store and an index together
   - Log: the abstraction that ties all the segments together
 - Write to a buffered writer instead of directly to the file to reduce the number of system calls and improve performance
+- use `*Width` constants to specify the number of bytes that make up each index entry
+  - an index file comprises a persisted file and a memory-mapped file
