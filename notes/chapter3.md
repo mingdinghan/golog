@@ -32,3 +32,6 @@
 - Write to a buffered writer instead of directly to the file to reduce the number of system calls and improve performance
 - use `*Width` constants to specify the number of bytes that make up each index entry
   - an index file comprises a persisted file and a memory-mapped file
+- The `segment` type wraps the `index` and `store` types to coordinate operations
+  - when the log appends a record to the active segment, the segment needs to write the data to its store and add a new entry in the index
+  - for reads, the segment needs to look up the entry from the index and then fetch the data from the store
