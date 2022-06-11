@@ -5,6 +5,7 @@ Golog is a distributed commit log built using Go
 Concepts covered
 - Protocol Buffers - Marshaling and Unmarshaling
 - Build a Log of binary Records, stored and indexed as Segments
+- Exposing a library as a Service with gRPC
 - ...
 
 ### References
