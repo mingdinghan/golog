@@ -35,3 +35,9 @@
 - The `segment` type wraps the `index` and `store` types to coordinate operations
   - when the log appends a record to the active segment, the segment needs to write the data to its store and add a new entry in the index
   - for reads, the segment needs to look up the entry from the index and then fetch the data from the store
+- The log consists of a list of segments and a pointer to the active segment to append writes to
+  - The directory is where the segments are stored
+- use a RWMutex to grant access to reads when there isn't a write holding the lock
+- expose methods which return offset range, to determine which nodes have oldest and newest data, and which need replication
+- truncate segments due to limited disk space
+- expose method `Reader()` to read the whole log to enable coordinated consensus, support snapshots and to restore a log
