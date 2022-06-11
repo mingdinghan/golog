@@ -20,3 +20,11 @@
       $ go get google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0
       ```
 - gRPC `requests` and `responses` are messages that the compiler turns into Go structs
+- To implement a gRPC service, build a struct whose methods match the service definition in the protobuf
+  - implement the `Produce` and `Consume` handlers and streaming APIs
+- Add a custom error `ErrOffsetOutOfRange` that the server will send back to the client when the client tries to consume an offset that's out of the log's range
+- Dependency Inversion with Interfaces
+  - design a service that depends on a log interface, rather than a specific log implementation
+    - in production env, the service may need to persist user data
+    - in testing env, an in-memory log implementation may suffice
+  - the service can use any given log implementation that satisfies the `CommitLog` interface
