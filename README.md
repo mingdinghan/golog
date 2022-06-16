@@ -6,7 +6,7 @@ Concepts covered
 - Serialization and deserialization using Protocol Buffers
 - Build a Log of binary Records, stored and indexed as Segments
 - Exposing a library as a Service with gRPC
-- ...
+- Securing Services using mutual TLS and access control lists
 
 ### References
 

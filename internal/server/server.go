@@ -14,8 +14,8 @@ type Config struct {
 var _ api.LogServer = (*grpcServer)(nil)
 
 // NewGRPCServer instantiates the gRPC service, creates a gRPC server, and registers the service to that server
-func NewGRPCServer(config *Config) (*grpc.Server, error) {
-	gsrv := grpc.NewServer()
+func NewGRPCServer(config *Config, opts ...grpc.ServerOption) (*grpc.Server, error) {
+	gsrv := grpc.NewServer(opts...)
 	srv, err := newgrpcServer(config)
 	if err != nil {
 		return nil, err
