@@ -14,3 +14,10 @@
     ```
 - define variables to specify the paths to the generated TLS certs in order to look up and parse for tests
   - use the cert and key files to build `*tls.Configs`
+- Access Control List: a table of rules where each row says "Subject A is permitted to do action B on object C"
+- Casbin is a library that supports enforcing authorization based on various control models, like ACL and RBAC
+  ```bash
+  $ go get github.com/casbin/casbin/v2
+  ```
+  - the `model` configures Casbin to use ACL as its authorization mechanism
+  - the `policy` is a CSV file containing the ACL table
