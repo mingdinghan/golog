@@ -4,8 +4,8 @@ go 1.16
 
 require (
 	github.com/casbin/casbin/v2 v2.47.2
-	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gorilla/mux v1.8.0
+	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/kr/text v0.2.0 // indirect
 	github.com/stretchr/testify v1.7.2
 	github.com/tysonmote/gommap v0.0.2

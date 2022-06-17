@@ -21,3 +21,7 @@
   ```
   - the `model` configures Casbin to use ACL as its authorization mechanism
   - the `policy` is a CSV file containing the ACL table
+- Setup gRPC interceptors
+  ```bash
+  $ go get github.com/grpc-ecosystem/go-grpc-middleware
+  ```

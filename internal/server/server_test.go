@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	api "github.com/mingdinghan/golog/api/v1"
+	"github.com/mingdinghan/golog/internal/auth"
 	"github.com/mingdinghan/golog/internal/config"
 	"github.com/mingdinghan/golog/internal/log"
 	"github.com/stretchr/testify/require"
@@ -94,8 +95,10 @@ func setupTest(t *testing.T, fn func(*Config)) (
 	clog, err := log.NewLog(dir, log.Config{})
 	require.NoError(t, err)
 
+	authorizer := auth.New(config.ACLModelFile, config.ACLPolicyFile)
 	cfg = &Config{
-		CommitLog: clog,
+		CommitLog:  clog,
+		Authorizer: authorizer,
 	}
 	if fn != nil {
 		fn(cfg)
