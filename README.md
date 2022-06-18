@@ -7,6 +7,7 @@ Concepts covered
 - Build a Log of binary Records, stored and indexed as Segments
 - Exposing a library as a Service with gRPC
 - Securing Services using mutual TLS and access control lists
+- Adding Observability to Services: Metrics, Structured Logs and Traces
 
 ### References
 
