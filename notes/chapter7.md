@@ -39,3 +39,23 @@ $ go get github.com/hashicorp/serf@v0.9.8
   - `StartJoinAddrs`: for configuring a new node to connect to one of the existing nodes in the cluster
 - Golog service is designed to replicate the data of servers that join the cluster
   - When consensus is added later, Raft will need to know when servers join the cluster, in order to coordinate with them
+
+### Request Discovered Services and Replicate Logs
+
+- Add replication and store multiple copies of the data when there are multiple servers in a cluster
+  - Makes the service more resilient to failures
+- Discovery events trigger other processes in the service, like replication and consensus
+  - Requires a component that handles when a server joins (or leaves) the cluster, and begins (or ends) replicating from it
+- Start with pull-based replication, with a replication component that
+  - acts as a membership handler handling when a server joins and leaves the cluster
+  - consumes from each discovered server and produces a copy to the local server
+  - polls each data source to check if it has new data to be consumed
+  - is great for log and message systems where consumers and workloads can differ
+- Lazily initialize structs to give them a [useful zero value](https://dave.cheney.net/2013/01/19/what-is-the-zero-value-and-why-is-it-useful)
+  - because that reduces the API size and complexity while maintaining the same functionality
+
+### Connecting and testing multiple components
+- Each service instance must set up these components: replicator, membership, log, server
+  - for simple, short-running programs, one can make a `run` package that exports a `Run()` function that runs the program
+  - for more complex, long-running services, one can make an `agent` package that exports an `Agent` type
+    - that manages the different components and processes that make up the service

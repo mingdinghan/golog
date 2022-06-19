@@ -8,10 +8,11 @@ Golog is a distributed commit log built using Go
 - Exposing a library as a Service with gRPC
 - Securing Services using mutual TLS and access control lists
 - Adding Observability to Services: Metrics, Structured Logs and Traces
-- Server-to-Server Discovery using [Serf](https://www.serf.io/intro/index.html)
+- Server-to-Server Service Discovery and Membership using [Serf](https://www.serf.io/intro/index.html)
   - a tool for cluster membership, failure detection, and orchestration
   - decentralized, fault-tolerant and highly available
   - uses an efficient `gossip` protocol
+- Replicate records whenever a new Server is discovered in the cluster
 
 ### References
 
