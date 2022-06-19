@@ -55,7 +55,13 @@ $ go get github.com/hashicorp/serf@v0.9.8
   - because that reduces the API size and complexity while maintaining the same functionality
 
 ### Connecting and testing multiple components
-- Each service instance must set up these components: replicator, membership, log, server
+- Each service instance must set up and connect these components: replicator, membership, log, server
   - for simple, short-running programs, one can make a `run` package that exports a `Run()` function that runs the program
-  - for more complex, long-running services, one can make an `agent` package that exports an `Agent` type
-    - that manages the different components and processes that make up the service
+  - for more complex, long-running services, one can make an `agent` package that exports an `Agent` type that
+    - manages the different components and processes that make up the service
+    - tests the log, server, membership, replicator components end-to-end
+- Shutdown functionality
+  - Leave the membership so that other servers will see that this server has left the cluster, and this server doesn't receive discovery events
+  - Close the replicator so that it doesn't continue to replicate
+  - Gracefully stop the server to stop it from accepting new connections, and blocks until all pending RPCs have finished
+  - Close the log

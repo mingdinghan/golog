@@ -13,6 +13,7 @@ Golog is a distributed commit log built using Go
   - decentralized, fault-tolerant and highly available
   - uses an efficient `gossip` protocol
 - Replicate records whenever a new Server is discovered in the cluster
+- Implementing Serf allows multiple service instances to be run where they can discover and then replicate each other's data
 
 ### References
 
