@@ -6,6 +6,8 @@ require (
 	github.com/casbin/casbin/v2 v2.47.2
 	github.com/gorilla/mux v1.8.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
+	github.com/hashicorp/raft v1.3.9
+	github.com/hashicorp/raft-boltdb v0.0.0-20210409134258-03c10cc3d4ea
 	github.com/hashicorp/serf v0.9.8
 	github.com/kr/text v0.2.0 // indirect
 	github.com/stretchr/testify v1.7.2
