@@ -450,7 +450,7 @@ func (s *StreamLayer) Dial(addr raft.ServerAddress, timeout time.Duration) (net.
 	if s.peerTLSConfig != nil {
 		conn = tls.Client(conn, s.peerTLSConfig)
 	}
-	return conn, nil
+	return conn, err
 }
 
 // Accept the incoming connection, read the byte that identifies the connection, then create a server-side TLS connection
