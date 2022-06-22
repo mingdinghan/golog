@@ -69,3 +69,17 @@ $ go get github.com/hashicorp/raft-boltdb/v2
     - `Addr()`
   - `Dial(addr raft.ServerAddress, timeout time.Duration)` makes outgoing connections to other servers in the Raft cluster
     - define a `RaftRPC` byte to identify the connection type, in order to multiplex Raft on the same port as log gRPC requests
+
+### Discovery Integration
+- Integrate the Serf-driven discovery layer with Raft to make the corresponding change in the Raft cluster when the Serf membership changes
+  - when a server is added to the cluster
+    - Serf will publish an event saying a member joined
+    - `discovery.Membership` will call its handler's `Join(id, addr string)` method
+  - when a server leaves the cluster
+    - Serf will publish an event saying a member left
+    - `discovery.Membership` will call its handler's `Leave(id string)` method
+  - Implement the `Join()` and `Leave()` methods in order to update Raft
+- Raft supports adding servers as non-voters with the `AddNonVoter()` API
+  - non-voter servers are useful for replicating state to many servers to serve read-only eventually consistent state.
+- Each voter server added increases the probability that replications and elections will take longer because
+  - the leader has more servers it needs to communicate with to reach a majority.
