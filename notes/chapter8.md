@@ -83,3 +83,9 @@ $ go get github.com/hashicorp/raft-boltdb/v2
   - non-voter servers are useful for replicating state to many servers to serve read-only eventually consistent state.
 - Each voter server added increases the probability that replications and elections will take longer because
   - the leader has more servers it needs to communicate with to reach a majority.
+
+### Use Multiplexing to Run Multiple Services on One Port
+- Multiplexing allows serving different services on the same port
+- Many distributed services that use Raft multiplex Raft with other services, like an RPC service
+  - when multiplexing mutual TLS gRPC connections, gRPC needs information taken during the TLS handshake to authenticate clients later
+  - multiplex before the handshake and find a way to differentiate Raft from gRPC connections, e.g. using a defined byte value
