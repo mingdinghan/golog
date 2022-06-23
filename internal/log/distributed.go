@@ -236,7 +236,7 @@ func (l *DistributedLog) WaitForLeader(timeout time.Duration) error {
 			return fmt.Errorf("timed out")
 		case <-ticker.C:
 			// every second, check if this node has become the leader
-			if l := l.raft.Leader(); l != "" {
+			if l, _ := l.raft.LeaderWithID(); l != "" {
 				return nil
 			}
 		}
@@ -409,7 +409,7 @@ func (l *logStore) StoreLogs(records []*raft.Log) error {
 }
 
 // DeleteRange removes records that are old or stored in a snapshot
-func (l *logStore) DeleteRange(min, max uint64) error {
+func (l *logStore) DeleteRange(_, max uint64) error {
 	return l.Truncate(max)
 }
 
