@@ -42,3 +42,8 @@ Load-Balancing Strategies
   - `ResolveNow()` is called by gRPC to resolve the target, discover the servers, and update the client connection with the servers.
     - Update the state with a slice of `resolver.Address` to inform the load balancer what servers it can choose from
   - `Close()` closes the resolver. Close the connection to the server created in `Build()`
+
+### Route and Balance Requests with Pickers
+- `pickers` handle the RPC balancing logic - they pick a server from those discovered by the `resolver` to handle each RPC
+  - they can route RPCs based on information about the RPC, client, and server, so they can be used to implement any request-routing logic
+- gRPC provides a base balancer that takes input from gRPC, manages sub-connections, and collects and aggregates connectivity states
