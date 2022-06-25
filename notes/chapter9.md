@@ -29,3 +29,16 @@ Load-Balancing Strategies
 ### Make Servers Discoverable
 - Raft knows the cluster's servers, and which server is the leader
   - this information can be exposed to the `resolver` with an endpoint on the gRPC service
+
+### Resolve the Servers
+- `resolver` calls the `GetServers()` gRPC endpoint and passes the response to `picker` to decide where to route requests
+- define a new type `Resolver` that implements gRPC `resolver.Builder` and `resolver.Resolver` interfaces
+- gRPC's `resolver.Builder` interface comprise two methods:
+  - `Build()` sets up a client connection so the resolver can call the `GetServers()` API
+    - receives data needed to build a resolver that can discover the servers and the client connection that the resolver will update on
+  - `Scheme()` returns the resolver's scheme identifier. gRPC parses it and tries to find a resolver that matches - defaults to DNS resolver
+    - register this resolver with gRPC so that gRPC knows about this resolver when it's looking for resolvers that match the target's scheme
+- gRPC's `resolver.Resolver` interface comprise two methods:
+  - `ResolveNow()` is called by gRPC to resolve the target, discover the servers, and update the client connection with the servers.
+    - Update the state with a slice of `resolver.Address` to inform the load balancer what servers it can choose from
+  - `Close()` closes the resolver. Close the connection to the server created in `Build()`
