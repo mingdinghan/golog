@@ -2,7 +2,6 @@ package loadbalance_test
 
 import (
 	"net"
-	"net/url"
 	"testing"
 
 	"google.golang.org/grpc"
@@ -58,9 +57,7 @@ func TestResolver(t *testing.T) {
 	r := &loadbalance.Resolver{}
 	_, err = r.Build(
 		resolver.Target{
-			URL: url.URL{
-				Path: l.Addr().String(),
-			},
+			Endpoint: l.Addr().String(),
 		},
 		conn,
 		opts,

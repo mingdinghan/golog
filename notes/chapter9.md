@@ -47,3 +47,8 @@ Load-Balancing Strategies
 - `pickers` handle the RPC balancing logic - they pick a server from those discovered by the `resolver` to handle each RPC
   - they can route RPCs based on information about the RPC, client, and server, so they can be used to implement any request-routing logic
 - gRPC provides a base balancer that takes input from gRPC, manages sub-connections, and collects and aggregates connectivity states
+- end-to-end testing:
+  - client configures the `resolver` and `picker`
+  - `resolver` discovers the servers
+  - `picker` picks the sub-connections per RPC request
+- documentation on [gRPC Name Resolution](https://github.com/grpc/grpc/blob/master/doc/naming.md)

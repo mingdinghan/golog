@@ -15,6 +15,7 @@ Golog is a distributed commit log built using Go
 - Replicate records whenever a new Server is discovered in the cluster
 - Implementing Serf allows multiple service instances to be run where they can discover and then replicate each other's data
 - Coordinated Services with Consensus - using Raft for leader election and replication
+- Client-side Server Discovery and Load-Balancing via custom gRPC `resolver` and `picker`
 
 ### References
 
